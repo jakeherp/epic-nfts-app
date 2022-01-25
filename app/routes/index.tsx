@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { ethers } from "ethers";
 import styles from "../styles/index.css";
+import useWallet from "../hooks/useWallet";
+import useMinter from "~/hooks/useMinter";
 
 const TWITTER_HANDLE = "jakeherp";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
@@ -11,53 +13,8 @@ export function links() {
 }
 
 export default function Index() {
-  const [currentAccount, setCurrentAccount] = useState<string>();
-
-  const checkIfWalletIsConnected = async () => {
-    const { ethereum } = window as any;
-
-    if (!ethereum) return;
-
-    const accounts = await ethereum.request({ method: "eth_accounts" });
-
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      console.log("Found an authorized account:", account);
-      setCurrentAccount(account);
-    }
-  };
-
-  const connectWallet = async () => {
-    try {
-      const { ethereum } = window as any;
-
-      if (!ethereum) return;
-
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-
-      console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const renderNotConnectedContainer = () => (
-    <button
-      onClick={connectWallet}
-      className="cta-button connect-wallet-button"
-    >
-      Connect to Wallet
-    </button>
-  );
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
-
-  console.log("currentAccount", currentAccount);
+  const { connectWallet, currentAccount } = useWallet();
+  const { mintNft, isMinting } = useMinter();
 
   return (
     <div className="App">
@@ -67,14 +24,20 @@ export default function Index() {
           <p className="sub-text">
             Each unique. Each beautiful. Discover your NFT today.
           </p>
-          {!currentAccount ? (
-            renderNotConnectedContainer()
+          {currentAccount ? (
+            <button
+              onClick={mintNft}
+              className="cta-button connect-wallet-button"
+              disabled={isMinting}
+            >
+              {isMinting ? "Mining ..." : "Mint NFT"}
+            </button>
           ) : (
             <button
-              onClick={(noop: unknown) => noop}
+              onClick={connectWallet}
               className="cta-button connect-wallet-button"
             >
-              Mint NFT
+              Connect to Wallet
             </button>
           )}
         </div>

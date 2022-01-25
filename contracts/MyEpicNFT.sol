@@ -19,6 +19,8 @@ contract MyEpicNFT is ERC721URIStorage {
   string[] secondWords = ["Tale", "Strategy", "Solution", "Awareness", "Location", "Year"];
   string[] thirdWords = ["Permission", "Coffee", "Growth", "Community", "Girlfriend", "Photo"];
 
+  event NewEpicNFTMinted(address sender, uint256 tokenId);
+
   constructor() ERC721 ("SquareNFT", "SQUARE") {
     console.log("This is my NFT contract. Woah!");
   }
@@ -45,7 +47,7 @@ contract MyEpicNFT is ERC721URIStorage {
       return uint256(keccak256(abi.encodePacked(input)));
   }
 
-function makeAnEpicNFT() public {
+  function makeAnEpicNFT() public {
     uint256 newItemId = _tokenIds.current();
 
     string memory first = pickRandomFirstWord(newItemId);
@@ -87,5 +89,7 @@ function makeAnEpicNFT() public {
   
     _tokenIds.increment();
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+
+    emit NewEpicNFTMinted(msg.sender, newItemId);
   }
 }

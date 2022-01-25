@@ -2,12 +2,10 @@ import { ethers } from "ethers";
 import { useState } from "react";
 import myEpicNft from "../utils/abi-files/MyEpicNFT.json";
 
-const useMinter = () => {
+const useMinter = (contractAddress: string) => {
   const [isMinting, setIsMinting] = useState(false);
 
   const mintNft = async () => {
-    const CONTRACT_ADDRESS = "0xAa1dBdb0Ab2003D65ABaA10fcBC5a194863BF288";
-
     try {
       const { ethereum } = window as any;
 
@@ -15,7 +13,7 @@ const useMinter = () => {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         const connectedContract = new ethers.Contract(
-          CONTRACT_ADDRESS,
+          contractAddress,
           myEpicNft.abi,
           signer
         );

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import setupEventListener from "~/utils/setupEventListener";
 
-const useWallet = () => {
+const useWallet = (contractAddress: string) => {
   const [currentAccount, setCurrentAccount] = useState();
 
   const connectWallet = async () => {
@@ -15,6 +16,8 @@ const useWallet = () => {
 
       console.log("Connected", accounts[0]);
       setCurrentAccount(accounts[0]);
+
+      setupEventListener(contractAddress);
     } catch (err) {
       console.error(err);
     }
@@ -31,6 +34,8 @@ const useWallet = () => {
       const account = accounts[0];
       console.log("Found an authorized account:", account);
       setCurrentAccount(account);
+
+      setupEventListener(contractAddress);
     }
   };
 

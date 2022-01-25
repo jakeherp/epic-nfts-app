@@ -7,14 +7,15 @@ const TWITTER_HANDLE = "jakeherp";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = "";
 const TOTAL_MINT_COUNT = 50;
+const CONTRACT_ADDRESS = "0x0c5976e639c4705061984adA7Ab07df8Cc6796CC";
 
 export function links() {
   return [{ rel: "stylesheet", href: styles }];
 }
 
 export default function Index() {
-  const { connectWallet, currentAccount } = useWallet();
-  const { mintNft, isMinting } = useMinter();
+  const { connectWallet, currentAccount } = useWallet(CONTRACT_ADDRESS);
+  const { mintNft, isMinting } = useMinter(CONTRACT_ADDRESS);
 
   return (
     <div className="App">

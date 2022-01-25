@@ -4,3 +4,10 @@ node_modules
 /build
 /public/build
 .env
+coverage
+coverage.json
+typechain
+
+#Hardhat files
+cache
+artifacts

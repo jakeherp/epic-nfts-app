@@ -32,6 +32,22 @@ body {
   color: white;
 }
 
+.warn-text {
+  font-size: 20px;
+  color: crimson;
+  border-left: 5px solid crimson;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  max-width: 90%;
+  width: 720px;
+  margin: 16px auto;
+}
+
+.warn-text a {
+  color: crimson;
+}
+
 .gradient-text {
   background: -webkit-linear-gradient(left, #ef3a86 30%, #7fa2f3 60%);
   background-clip: text;
@@ -73,6 +89,33 @@ body {
   color: white;
   font-size: 18px;
   font-weight: bold;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin: 32px auto;
+  width: 1140px;
+  max-width: 90%;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.grid a {
+  color: white;
+  text-decoration: none;
+}
+
+.grid h2 {
+  font-size: 18px;
+  margin: 10px;
+}
+
+.grid p {
+  margin: 0;
+}
+
+.grid img {
+  border-radius: 5px;
 }
 
 .footer-container {

@@ -1,8 +1,10 @@
 node_modules
 
 /.cache
-/build
+/api/_build
 /public/build
+/.vercel
+/.output
 .env
 coverage
 coverage.json
